@@ -1,16 +1,19 @@
 import React from 'react';
-import styles from './Button.module.css';
+import { Button as MaterialButton } from '@mui/material';
+
 
 interface IButton {
   btnText: string;
-  btnStyle?: string;
+  variant?: 'text' | 'outlined' | 'contained';
+  size?: 'small' | 'medium' | 'large';
+  endIcon?: React.ReactNode;
   onClick?: () => void;
 }
-const Button = ({ btnText, btnStyle, onClick = () => {} }: IButton) => {
+const Button = ({ btnText, variant = 'contained', size = 'small', endIcon, onClick = () => {} }: IButton) => {
   return (
-    <button onClick={onClick} className={`${styles.button} ${btnStyle}`}>
+    <MaterialButton variant={variant} size={size} onClick={onClick} endIcon={endIcon && endIcon}>
       {btnText}
-    </button>
+    </MaterialButton>
   );
 };
 

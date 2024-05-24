@@ -1,16 +1,21 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './App.css';
-import { locationService } from './services/LocationService';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import localStorageService from './services/LocalStorageService';
-import { LOCATION_STORAGE_KEY, LocationData, defaultLocation, FETCH_INTERVAL } from './global';
 import { v4 as uuidv4 } from 'uuid';
-import LocationCard from './components/LocationCard/LocationCard';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import './App.css';
 import useAlert from './hooks/useAlert';
+import { LocationData } from './models';
 import useInterval from './hooks/useInterval';
-import { weatherService } from './services/WeatherService';
 import WeatherForm from './features/WeatherForm';
+import { weatherService } from './services/WeatherService';
+import { locationService } from './services/LocationService';
+import localStorageService from './services/LocalStorageService';
+import LocationCard from './components/LocationCard/LocationCard';
+import {
+  LOCATION_STORAGE_KEY,
+  defaultLocation,
+  FETCH_INTERVAL,
+} from './global';
 
 function App() {
   const storedLocations: LocationData[] =
@@ -23,9 +28,8 @@ function App() {
     callback: async () => {
       await fetchWeatherData();
     },
-    delay: FETCH_INTERVAL
+    delay: FETCH_INTERVAL,
   });
-
 
   const onUpdate = (newLocation: LocationData) => {
     const updatedLocations = listOfLocations.filter(
@@ -52,14 +56,13 @@ function App() {
     try {
       const locationData: LocationData =
         await locationService.getLocationData(place);
-      console.log('location data', locationData);
       const weather = await onGetWeatherData(locationData);
       const locationWithWeatherData = { ...locationData, weatherData: weather };
       onUpdate(locationWithWeatherData);
     } catch (err) {
       throw err;
     }
-  }
+  };
 
   useEffect(() => {
     const setDefault = async () => {
@@ -78,10 +81,9 @@ function App() {
     if (storedLocations.length === 0) {
       setDefault();
     }
-
   }, []);
 
-  const fetchWeatherData =  useCallback(async () => {
+  const fetchWeatherData = useCallback(async () => {
     try {
       const updatedLocations = await Promise.all(
         listOfLocations.map(async (location) => {
@@ -89,11 +91,11 @@ function App() {
           return { ...location, weatherData };
         })
       );
-        setListOfLocations(updatedLocations);
-    } catch (err){
+      setListOfLocations(updatedLocations);
+    } catch (err) {
       handleOpen((err as any)?.message || 'Error fetching weather data');
     }
-  },[listOfLocations])
+  }, [listOfLocations]);
 
   useEffect(() => {
     localStorageService.setItem(LOCATION_STORAGE_KEY, listOfLocations);
@@ -107,10 +109,7 @@ function App() {
         <Grid container spacing={3}>
           {listOfLocations.length > 0 &&
             listOfLocations.map((location) => (
-              <LocationCard
-                key={location.id}
-                location={location}
-              />
+              <LocationCard key={location.id} location={location} />
             ))}
         </Grid>
       </Box>

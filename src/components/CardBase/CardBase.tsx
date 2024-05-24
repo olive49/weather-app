@@ -2,9 +2,9 @@ import React from 'react';
 import { CardContent, Typography, Card } from '@mui/material';
 
 interface IProps {
-    title: string;
-    subtitle: string;
-    description: string;
+  title: string;
+  subtitle: string;
+  description: string;
 }
 
 const CardBase = ({ title, subtitle, description }: IProps) => {
