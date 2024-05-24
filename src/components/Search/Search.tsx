@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ISearch {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  location: string | number;
+  location: string;
 }
 
 const Search = ({ onChange, location }: ISearch) => {

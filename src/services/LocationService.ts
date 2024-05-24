@@ -2,13 +2,13 @@ import { HeaderKeys, weatherApiBaseUrl } from '../global';
 import { IHttpService, HttpService } from './HttpService';
 
 interface ILocationService {
-  getLocationData(location: string | number): Promise<any>;
+  getLocationData(location: string): Promise<any>;
 }
 
 class LocationService implements ILocationService {
   constructor(private httpService: IHttpService) {}
 
-  async getLocationData(location: string | number) {
+  async getLocationData(location: string) {
     try {
       const locationInfo = await this.httpService.get('', { q: location });
       const { lat, lon } = locationInfo?.location;

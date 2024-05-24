@@ -3,8 +3,8 @@ import styles from './Button.module.css';
 
 interface IButton {
   btnText: string;
-  onPress?: () => void;
   btnStyle?: string;
+  onPress?: () => void;
 }
 const Button = ({ btnText, btnStyle, onPress = () => {} }: IButton) => {
   return (
