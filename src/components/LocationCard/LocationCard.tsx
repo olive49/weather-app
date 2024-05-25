@@ -2,10 +2,10 @@ import React, { memo } from 'react';
 
 import Grid from '@mui/material/Grid';
 import CardBase from '../CardBase/CardBase';
-import { LocationData } from '../../models';
+import { LocationWeatherData } from '../../models';
 
 interface IProps {
-  location: LocationData;
+  location: LocationWeatherData;
 }
 
 const LocationCard = ({ location }: IProps) => {
