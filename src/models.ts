@@ -2,6 +2,9 @@ export interface LocationData {
   lat: number;
   lon: number;
   id?: string;
+}
+
+export interface LocationWeatherData extends LocationData {
   weatherData?: {
     name: string;
     weather: [{ description: string }];

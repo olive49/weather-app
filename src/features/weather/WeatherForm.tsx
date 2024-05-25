@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Button from '../components/Button/Button';
-import Search from '../components/Search/Search';
 import SearchIcon from '@mui/icons-material/Search';
 import styles from './WeatherForm.module.css';
+import Search from '../../components/Search/Search';
+import Button from '../../components/Button/Button';
 
 interface IProps {
   onGetLocation: (location: string) => void;
@@ -28,7 +28,7 @@ const WeatherForm = ({ onGetLocation, handleOpen }: IProps) => {
   return (
     <form onSubmit={onSearch} className={styles.form}>
       <Search onChange={onChange} location={location} />
-      <Button btnText="Search" endIcon={<SearchIcon/>}/>
+      <Button btnText="Search" endIcon={<SearchIcon />} onClick={onSearch}/>
     </form>
   );
 };
